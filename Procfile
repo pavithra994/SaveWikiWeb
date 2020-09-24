@@ -1,1 +1,1 @@
-web: gunicorn SaveWiki.wsgi --log-file
+web: gunicorn SaveWiki.wsgi --log-file -
