@@ -16,6 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from app_user.views import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', oAuthJavascriptView, name="login"),
+    # path('auth/', oAuthView, name="auth"),
+    # path('oauth2callback/', oAuth2CallBackView, name="oauth2callback"),
+    path('gmailAuthenticate', gmail_authenticate, name ='gmail_authenticate'),
+    path('index', auth_return),
+    path('', home, name ='home'),
 ]

@@ -10,11 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -39,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django_google.apps.DjangoGoogleConfig',
+    'django_google.apps.DjangoGoogleConfig',
 
     'app_user'
 ]
@@ -84,7 +83,7 @@ WSGI_APPLICATION = 'SaveWiki.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -127,12 +126,18 @@ AUTH_USER_MODEL = "app_user.User"
 
 STATIC_URL = '/static/'
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
 
 #google driver
 # GOOGLE_CLIENT_SECRET_FILE = os.path.join(BASE_DIR, 'credentials.json')
+# print(GOOGLE_CLIENT_SECRET_FILE)
 # GOOGLE_AUTH_SCOPES = [
 #     'https://www.googleapis.com/auth/userinfo.email',
 #     'https://www.googleapis.com/auth/userinfo.profile',
-#     'https://www.googleapis.com/auth/drive'
+#     # 'https://www.googleapis.com/auth/drive'
 # ]
+
+GOOGLE_CLIENT_ID = ['124731115006-mf3vbc5d7mns1fha3oahq0fpj50upjv2.apps.googleusercontent.com']
+
+GOOGLE_OAUTH2_CLIENT_SECRETS_JSON =  os.path.join(BASE_DIR, "credentials.json")

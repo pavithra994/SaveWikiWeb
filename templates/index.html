@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Google Login</title>
+</head>
+<body>
+
+<div>
+    <div>
+        {% if not status %}
+            <a href="/gmailAuthenticate" onclick="gmailAuthenticate()" title="Google">Google</a>
+        {% else %}
+            <p>Your are verified</p>
+        {% endif %}
+    </div>
+
+</div>
+<div>
+    <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+        {{ form }}
+        <button>upload</button>
+    </form>
+</div>
+<script>
+    function gmailAuthenticate(){
+    $.ajax({
+        type: "GET",
+        url: "ajax/gmailAuthenticate",
+        // data: '',
+        success: function (data) {
+            console.log('Done')
+        }
+    });
+};
+</script>
+
+</body>
+</html>
