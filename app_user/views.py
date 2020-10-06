@@ -1,4 +1,5 @@
 import os
+import socket
 
 import httplib2
 from django.core.files.base import ContentFile
@@ -10,6 +11,7 @@ from django.http import HttpResponseBadRequest
 from django.http import HttpResponseRedirect
 from django.conf import settings
 
+from SaveWiki.utils import WikipediaController
 from app_user.forms import Upload
 from app_user.models import CredentialsModel
 from oauth2client.contrib import xsrfutil
@@ -80,14 +82,20 @@ def home(request):
     if request.method == "POST":
         form = Upload(request.POST,request.FILES)
         if form.is_valid():
-            print(form.cleaned_data.get("file").name)
-            print(ContentFile(form.cleaned_data.get("file").read()))
-            path = default_storage.save(form.cleaned_data.get("file").name, ContentFile(form.cleaned_data.get("file").read()))
+
+            wiki_obj = WikipediaController(form.cleaned_data.get("wiki"))
+            path, name = wiki_obj.download_pdf()
+
+
             tmp_file = os.path.join(settings.MEDIA_ROOT, path)
+
+            socket.setdefaulttimeout(600)  # set timeout to 10 minutes
+
+            # file upload
             service = build('drive', 'v3', credentials=credential)
-            # media = MediaFileUpload(path, mimetype='application/pdf')
-            media = MediaFileUpload(tmp_file, mimetype='image/jpeg')
-            file = service.files().create(body={"name":form.cleaned_data.get("file").name},
+            media = MediaFileUpload(tmp_file, mimetype='application/pdf')
+            # media = MediaFileUpload(tmp_file, mimetype='image/jpeg')
+            file = service.files().create(body={"name":name},
                                                 media_body=media,
                                                 fields='id').execute()
 
@@ -96,4 +104,4 @@ def home(request):
     else:
         form = Upload()
 
-    return render(request, 'index.html', {'status': status, "form":form})
+    return render(request, 'test.html', {'status': status, "form":form})

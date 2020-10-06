@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    </style>
 </head>
 <style>
     /* BASIC STYLES */
@@ -31,6 +30,7 @@ ul {
 #nav_bar li {
   display: inline-block;
   padding: 8px;
+    margin-top: 5px;
 }
 
 #nav_bar #sign_in {
@@ -68,8 +68,7 @@ li.nav-links a:hover {
   display: block;
   margin: 0 auto;
   clear: both;
-  padding-top: 112px;
-  padding-bottom: 20px;
+  padding-top: 100px;
 }
 
 .form {
@@ -93,8 +92,8 @@ li.nav-links a:hover {
 
 .buttons {
   text-align: center;
-  padding-top: 30px;
-  margin-bottom: 300px;
+  padding-top: 10px;
+  margin-bottom: 100px;
 }
 
 /* FOOTER */
@@ -237,17 +236,17 @@ footer ul a:hover {
 
     <!-- GOOGLE IMG -->
     <div class="google">
-      <a href="#" id="google_logo"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Wikipedia-logo-en-big.png" width="10%" alt=" photo google-logo_zpspkcztsjo.png"/></a>
+      <a href="#" id="google_logo"><img src="/media/savewiki.png" width="20%" alt=" photo google-logo_zpspkcztsjo.png"/></a>
     </div>
 
     <!-- FORM SEARCH -->
         <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-    <div class="form">
+    <div class="form mr-5 ml-5">
         <label for="form-search"></label>
 {#        <input type="text" id="form-search" placeholder="Enter the Wikipedia URL">#}
-        {{ form }}
+        {{ form.wiki }}
     </div>
 
     <!-- BUTTONS -->
